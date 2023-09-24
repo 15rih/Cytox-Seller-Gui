@@ -15,14 +15,6 @@ end)
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-getgenv()._SETTINGS_ = {
-    FPS = 30, -- fps cap amount here
-    NotifyOnPlayerJoin = true, -- self explanitory
-    MaskOnExecution = false, -- set this to true if you want to mask on execution.
-    LowGFXMode = true, -- safes cpu usage
-}
-
 setfpscap(tonumber(getgenv()._SETTINGS_.FPS))
 
 if getgenv()._SETTINGS_.LowGFXMode == true then
