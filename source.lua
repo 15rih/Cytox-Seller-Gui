@@ -14,6 +14,12 @@ game:GetService("Players").LocalPlayer.Idled:Connect(function()
 end)
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+getgenv()._SETTINGS_ = {
+    FPS = 60, -- fps cap amount here
+    NotifyOnPlayerJoin = true, -- self explanitory
+    MaskOnExecution = false, -- set this to true if you want to mask on execution.
+    LowGFXMode = true, -- safes cpu usage
+}
 
 setfpscap(tonumber(getgenv()._SETTINGS_.FPS))
 
