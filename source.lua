@@ -4,6 +4,12 @@ else
     getgenv().CYTOXSELLERGUI_Loaded = true
 end
 
+if game.PlaceId ~= 2788229376 then
+    game:GetService("Players").LocalPlayer:Kick("ERROR: Script only works inside of Da Hood.")
+    task.wait(3)
+    game:Shutdown()
+end
+
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until game:GetService("Workspace").Players:FindFirstChild(game:GetService("Players").LocalPlayer.Name)
 
@@ -14,8 +20,10 @@ game:GetService("Players").LocalPlayer.Idled:Connect(function()
 end)
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 getgenv()._SETTINGS_ = {
-    FPS = 60, -- fps cap amount here
+    FPS = 30, -- fps cap amount here
     NotifyOnPlayerJoin = true, -- self explanitory
     MaskOnExecution = false, -- set this to true if you want to mask on execution.
     LowGFXMode = true, -- safes cpu usage
@@ -55,6 +63,12 @@ end
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("cytox's seller gui", "DarkTheme")
 
+
+local HTab = Window:NewTab("Home")
+local HSection = HTab:NewSection("Welcome, "..game.Players.LocalPlayer.DisplayName)
+
+HSection:NewLabel("Username: "..game.Players.LocalPlayer.Name)
+HSection:NewLabel("Executer: "..identifyexecutor())
 
 local MainTab = Window:NewTab("Main")
 local MainSection = MainTab:NewSection("")
@@ -103,6 +117,22 @@ MainSection:NewToggle("Cash Aura", "", function(CASH_AurAA)
     end
 end)
 
+MainSection:NewToggle("Block", "", function(_autoblock)
+    if _autoblock then
+        game.ReplicatedStorage.MainEvent:FireServer("Block", true)
+    else
+        game.ReplicatedStorage.MainEvent:FireServer("Block", false)
+    end
+end)
+
+MainSection:NewToggle("Freeze", "ToggleInfo", function(FREEZE)
+    if FREEZE then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+    else
+        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+    end
+end)
+
 MainSection:NewButton("Buy Mask", "", function()
     for i,v in pairs(game:GetService("Workspace").Ignored.Shop["[Surgeon Mask] - $26"]:GetChildren()) do
         if v.Name == "Head" and v:IsA("Part") then
@@ -125,7 +155,6 @@ end)
 
 
 
--- selling stuff
 local SellTab = Window:NewTab("Misc")
 local SellSection = SellTab:NewSection("")
 
